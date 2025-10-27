@@ -1,0 +1,53 @@
+general:
+  results_dir: "results"
+
+geometry: 
+  physical_length: 1
+  x_range: [-2, 2]
+  y_range: [-2, 2]
+  n: 300
+
+optical_flow:
+  fista:
+    num_iter: 150
+    num_warp: 5
+    alpha: 0.1
+    beta: 0.8
+    eps: 0.001
+    num_pyramid: 10
+    pyramid_downscale: 1.5
+    pyramid_min_size: 16
+
+  hs:
+    num_iter: 150
+    num_warp: 5
+    alpha: 0.1
+    eps: 0.001
+    num_pyramid: 10
+    pyramid_downscale: 1.5
+    pyramid_min_size: 16
+    w: 1
+
+  farneback:
+    winSize: 10
+    pyrScale: 0.3
+    numLevels: 11 
+    fastPyramids: True 
+    numIters: 5
+    polyN: 5 
+    polySigma: 2
+    flags: 0
+
+  tvl1:
+    attachment: 25
+    tightness: 0.5
+    num_warp: 5 
+    num_iter: 150
+    tol: 0.0001 
+    prefilter: False
+
+  ilk:
+    radius: 3
+    num_warp: 5 
+    gaussian: True 
+    prefilter: True 

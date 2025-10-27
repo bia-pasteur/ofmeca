@@ -1,0 +1,23 @@
+general:
+  dataset_dir: "data"
+  t_end: 1
+  num_time_steps: 2
+
+geom:
+  physical_length: 1.0
+  pipette_radius_factor: 0.5
+  pipette_center: [0, 1, 0]
+  x_range: [-2, 2]
+  y_range: [-2, 2]
+  n: 300
+
+mat:
+  nu: 0.2
+  eta: 0
+
+img:
+  num_points: 100
+  noise_amplitude: 0.2
+  num_fourier_modes: 7
+  lc: 0.5
+  grain: 3
