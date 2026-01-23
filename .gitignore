@@ -5,3 +5,4 @@ simulation/data/raw/T*
 results/
 data/*
 .vscode/
+**.tiff

@@ -1,0 +1,10 @@
+viscoelastic_simu:
+  t_end: 5
+  num_time_steps: 40
+  youngs_modulus: [1000]
+  traction_zone: 100
+  nu: 0.3
+  eta: [150]
+  seeds: [1, 2, 3, 4, 5]
+  subparts:  {1 : {'center' : [0.2, 0.1], 'radius' : 0.3, 'noise_amplitude' : 0.2, 'num_fourier_modes' : 7, 'seed': 1, 'youngs_modulus': 500.0, 'eta': 50.0},
+              2 : {'center' : [-0.3, -0.4], 'radius' : 0.1, 'noise_amplitude' : 0.2, 'num_fourier_modes' : 7, 'seed': 1, 'youngs_modulus': 1500.0, 'eta': 300.0} }

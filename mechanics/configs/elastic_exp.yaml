@@ -1,0 +1,17 @@
+elastic_exp:
+  of_funcs: [fista, hs, farneback, ilk, tvl1]
+  T: null
+  E: null
+  nu: null
+  exp_ind: null
+  image_id: null
+  implot: 6
+  vmaxstrain: 0.15
+  scale: 2
+  step: 1
+  T_for_plot: 100
+  E_for_plot: 1000
+  nu_for_plot: 0.3
+  threshold_inf: 0
+  threshold_sup: 150
+  scatter_comparison: True

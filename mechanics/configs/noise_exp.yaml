@@ -1,0 +1,2 @@
+noise_exp:
+  of_funcs: [fista]
