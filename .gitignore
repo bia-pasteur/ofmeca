@@ -6,3 +6,4 @@ results/
 data/*
 .vscode/
 **.tiff
+E_values.**
