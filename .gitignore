@@ -6,4 +6,5 @@ results/
 data/*
 .vscode/
 **.tiff
-E_values.**
+*.h5
+*.xddmf
