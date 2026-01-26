@@ -7,7 +7,3 @@ python -m data_generation.examples.generate_noisy_elastic_datasets --config=data
 python -m mechanics.examples.run_elastic_exp --config=mechanics/configs/optical_flow.yaml --config=mechanics/configs/general.yaml --config=mechanics/configs/elastic_exp.yaml
 
 python -m mechanics.examples.run_elastic_noise_reg --config=mechanics/configs/optical_flow.yaml --config=mechanics/configs/general.yaml --config=mechanics/configs/reg_exp.yaml
-
-python -m mechanics.examples.run_micro_image_exp --config=mechanics/configs/optical_flow.yaml --config=mechanics/configs/general.yaml --config=mechanics/configs/micro_exp.yaml
-
-python -m data_generation.examples.generate_viscoelas_data --config=data_generation/configs/general.yaml --config=data_generation/configs/viscoelastic_params.yaml
