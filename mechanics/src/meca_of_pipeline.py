@@ -167,7 +167,6 @@ def compute_of_strain_traction(
     return results
 
 
-
 def compute_of_strain_traction_micro_img(
     image: np.ndarray, 
     mask: np.ndarray,
@@ -199,7 +198,6 @@ def compute_of_strain_traction_micro_img(
             - `"flows"`, `"strain"`, `"deformation"`, `"stress"`, `"traction"`:
             dictionaries with OF-based results per method.
             - `"mask"` : binary mask used for valid regions.
-    
     """
     
     results = {}
