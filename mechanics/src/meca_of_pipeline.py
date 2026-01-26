@@ -178,14 +178,10 @@ def compute_of_strain_traction_micro_img(
     global_flow: bool
 ) -> Dict: 
     """
-    Compute optical-flow-based displacement, strain, deformation, stress, and traction fields,
-    and compare them to ground-truth quantities for one or several images.
+    Compute optical-flow-based displacement, strain, deformation, stress, and traction fields on a microsocpy image.
 
-    This function evaluates several optical flow (OF) methods on a sequence of images with 
-    known ground-truth displacements. For each image, it computes the corresponding
-    strain, deformation gradient, stress, and traction fields, and calculates the 
-    root mean square error (RMSE) between the OF-based estimates and the ground truth.
-    Mean RMSE values across all images are also provided.
+    This function evaluates several optical flow (OF) methods on an image. 
+    It then computes the corresponding strain, deformation gradient, stress, and traction fields
 
     Args:
         image (np.ndarray): 2D grayscale image (float or uint) used as input to optical flow methods. The image must contain one single cell.

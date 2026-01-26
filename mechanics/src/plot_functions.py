@@ -63,16 +63,14 @@ def save_of_strain_traction(
         name = m.__name__.replace("_of", "") if callable(m) else str(m)
         method_names.append(name_map.get(name, name)) 
 
-    num_methods = len(methods) + 1  # +1 for Ground Truth
+    num_methods = len(methods) + 1  
 
     fig = plt.figure(figsize=(4*num_methods, 12))
     gs = gridspec.GridSpec(3, num_methods, figure=fig,
                            wspace=0.05, hspace=0.05)
 
     gt = displacements[implot][0, 0] * pixel_size
-    data_list_of = [gt] + [
-        results[implot]["flows"][m][0, 0] for m in methods
-    ]
+    data_list_of = [gt] + [results[implot]["flows"][m][0, 0] for m in methods]
 
     vmin = min(np.min(d) for d in data_list_of)
     vmax = max(np.max(d) for d in data_list_of)
@@ -97,9 +95,7 @@ def save_of_strain_traction(
                         fraction=0.03, pad=0.02, shrink=0.95)
     cbar.ax.tick_params(labelsize=10)
 
-    data_list_strain = [results[implot]["deformation"]["gt"][0]] + [
-        results[implot]["deformation"][m][0] for m in methods
-    ]
+    data_list_strain = [results[implot]["deformation"]["gt"][0]] + [results[implot]["deformation"][m][0] for m in methods]
 
     ims = []
     axes_line = []
@@ -119,9 +115,7 @@ def save_of_strain_traction(
                         fraction=0.03, pad=0.02, shrink=0.95)
     cbar.ax.tick_params(labelsize=10)
 
-    fields = [results[implot]["traction"]["gt"]] + [
-        results[implot]["traction"][m] for m in methods
-    ]
+    fields = [results[implot]["traction"]["gt"]] + [results[implot]["traction"][m] for m in methods]
 
     quiv_line = None
     axes_line = []
@@ -171,7 +165,9 @@ def save_of_strain_traction(
     plt.close(fig)
     
 
-def save_scatter_comparison(dfs: pd.DataFrame, results_dir: Path):
+def save_scatter_comparison(
+    dfs: pd.DataFrame, 
+    results_dir: Path):
     """
     Saves a comparison of the mean RMSE of the different optical flow methods present in the dfs dataframe 
     in estimating mechanical quanties. Displays the mean RMSE of the reconstructed displacement and strain fields
@@ -282,6 +278,7 @@ def save_scatter_comparison(dfs: pd.DataFrame, results_dir: Path):
     plt.savefig(results_dir / 'plots' / 'scatter_rmse_mean', dpi=300)
     plt.close()
 
+
 def save_table_rmse(rmse_table: pd.DataFrame, save_path: Path):
     """
     Saves the provided RMSE table in the form of a .png file
@@ -293,10 +290,8 @@ def save_table_rmse(rmse_table: pd.DataFrame, save_path: Path):
     fig, ax = plt.subplots(figsize=(10, 3))
     ax.axis('off')
 
-    # Select only the columns you want to show
     subset = rmse_table[["RMSE displacement", "RMSE strain", "RMSE deformation", "RMSE stress", "RMSE traction force", "runtime"]]
 
-    # Then create the table
     table = ax.table(
         cellText=np.round(subset.values, 4),
         rowLabels=subset.index,
@@ -321,7 +316,9 @@ def save_table_rmse(rmse_table: pd.DataFrame, save_path: Path):
     plt.close(fig)
     
     
-def save_table_rmse_with_std(rmse_table: pd.DataFrame, save_path: Path):
+def save_table_rmse_with_std(
+    rmse_table: pd.DataFrame, 
+    save_path: Path):
     """
     Saves the provided RMSE table in the form of a .png file.
     Each cell contains: RMSE ± std RMSE
@@ -378,7 +375,10 @@ def save_table_rmse_with_std(rmse_table: pd.DataFrame, save_path: Path):
     plt.close(fig)
     
     
-def plot_reg(rmse_mean_reg: pd.DataFrame, factors_for_reg: List[float], results_dir:Path):
+def plot_reg(
+    rmse_mean_reg: pd.DataFrame, 
+    factors_for_reg: List[float], 
+    results_dir:Path):
     """
     Saves a graph of the RMSE of the deformation and the traction for different
     optical-flow functions vs the factor used to scale the regularization parameters.
@@ -433,7 +433,10 @@ def plot_reg(rmse_mean_reg: pd.DataFrame, factors_for_reg: List[float], results_
     plt.close()    
     
     
-def plot_mean_error_noise(rmse_mean_noise: pd.DataFrame, stds: List[float], results_dir: Path):
+def plot_mean_error_noise(
+    rmse_mean_noise: pd.DataFrame, 
+    stds: List[float], 
+    results_dir: Path):
     """
     Saves a graph of the RMSE of the deformation and the traction for different
     optical-flow functions vs the std of the noise applied to the original image.
@@ -489,7 +492,12 @@ def plot_mean_error_noise(rmse_mean_noise: pd.DataFrame, stds: List[float], resu
     plt.close()
     
 
-def plot_noise_reg(rmse_mean_reg: pd.DataFrame, factors_for_reg: List[float], rmse_mean_noise: pd.DataFrame, stds: List[float], results_dir: Path):
+def plot_noise_reg(
+    rmse_mean_reg: pd.DataFrame, 
+    factors_for_reg: List[float], 
+    rmse_mean_noise: pd.DataFrame, 
+    stds: List[float], 
+    results_dir: Path):
     """  
     Saves a graph of the RMSE of the deformation and the traction for different
     optical-flow functions vs the factor used to scale the regularization parameters, and 
@@ -580,10 +588,10 @@ def save_of_strain_traction_micro_img(
     step_traction: int,
     show=False):
     """
-    Saved a .png containing 
-        - The optical-flow based vertical displacement for the selected microscopy image 
-        - The optical-flow base computed strain for the selected microscopy image
-        - The optical-flow base computed traction for the selected microscopy image
+    Saves a .png containing 
+        - The optical-flow based displacement for the selected microscopy image 
+        - The optical-flow based strain for the selected microscopy image
+        - The optical-flow based traction for the selected microscopy image
 
     Args:
         image (np.ndarray): grayscale image of a moving cell.
@@ -591,12 +599,13 @@ def save_of_strain_traction_micro_img(
             optical-flow-based data (flows, strain, stress, etc.)
         save_path (Path): Path to the directory or filename where the .png figure will be saved.
         vmaxstrain (float): Maximum strain value for color normalization in plots.
-        scale (float): Scaling factor for quiver or vector field visualization.
-        step (int): Sampling step for displaying displacement vectors (e.g., 1 = every pixel, 2 = every second pixel).
+        scale_flow (float): Scaling factor for quiver visualization of the displacements vectors.
+        step_flow (int): Sampling step for displaying displacement vectors (e.g., 1 = every pixel, 2 = every second pixel).
+        scale_traction (float): Scaling factor for quiver visualization of the traction forces.
+        step_traction (int): Sampling step for displaying traction vectors (e.g., 1 = every pixel, 2 = every second pixel).
         show (bool, optional): If True, displays the generated figure interactively in addition to saving it.
             Defaults to False.
     """
-    
     all_methods = list(results["flows"].keys())
     methods = [m for m in all_methods]
 
@@ -685,9 +694,7 @@ def save_of_strain_traction_micro_img(
                         fraction=0.03, pad=0.02, shrink=0.95)
     cbar.ax.tick_params(labelsize=10)
 
-    fields = [
-        results["traction"][m] for m in methods
-    ]
+    fields = [results["traction"][m] for m in methods]
 
     quiv_line = None
     axes_line = []
@@ -732,9 +739,14 @@ def save_of_strain_traction_micro_img(
     plt.close(fig)
 
 
-def plot_cell_positions(image: np.ndarray, save_path: Path, vmin: float = None, vmax: float = None, alpha: float = 0.5):
+def plot_cell_positions(
+    image: np.ndarray, 
+    save_path: Path, 
+    vmin: float = None, 
+    vmax: float = None, 
+    alpha: float = 0.5):
     """
-    Plots an image constaining a cell with its position on the reference frame and on the moving frame
+    Saves a .png image constaining a cell with its position on the reference frame and on the moving frame
 
     Args:
         image (np.ndarray): The 2-frame image
@@ -771,6 +783,196 @@ def plot_cell_positions(image: np.ndarray, save_path: Path, vmin: float = None, 
     plt.imshow(newim)
     plt.legend(handles, labels, loc=3, framealpha=1)
     plt.axis("off")
+    
+    save_path = Path(save_path)
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    
+    
+def plot_pos_dis_strain_trac_micro_image(    
+    image: np.ndarray,
+    results: Dict,
+    save_path: Path,
+    vmaxstrain: float,
+    scale_flow: float,
+    step_flow: int,
+    scale_traction: float,
+    step_traction: int,
+    show=False, 
+    vmin: float = None, 
+    vmax: float = None, 
+    alpha: float = 0.5):
+    """
+    Saved a .png containing 
+        - The optical-flow based vertical displacement for the selected microscopy image 
+        - The optical-flow base computed strain for the selected microscopy image
+        - The optical-flow base computed traction for the selected microscopy image
+
+    Args:
+        image (np.ndarray): grayscale image of a moving cell.
+        results (Dict): Results dictionary from `compute_of_strain_traction` containing
+            optical-flow-based data (flows, strain, stress, etc.)
+        save_path (Path): Path to the directory or filename where the .png figure will be saved.
+        vmaxstrain (float): Maximum strain value for color normalization in plots.
+        scale_flow (float): Scaling factor for quiver visualization of the displacements vectors.
+        step_flow (int): Sampling step for displaying displacement vectors (e.g., 1 = every pixel, 2 = every second pixel).
+        scale_traction (float): Scaling factor for quiver visualization of the traction forces.
+        step_traction (int): Sampling step for displaying traction vectors (e.g., 1 = every pixel, 2 = every second pixel).
+        save_path (Path): Path to the directory or filename where the .png figure will be saved.
+        show (bool, optional): If True, displays the generated figure interactively in addition to saving it.
+            Defaults to False.
+        vmin (float, optional): The value in the image to be mapped at 0. Defaults to None.
+        vmax (float, optional): The value in the image to be mapped at 1. Defaults to None.
+        alpha (float): A value used to contorl the darkness of the background. Must be between 0 and 1. Defaults to 0.5
+    """
+    
+    if alpha > 1 or alpha < 0: 
+        raise ValueError("alpha must be between 0 and 1")
+    
+    c0 = remap(image[0], vmin, vmax)
+    c1 = remap(image[1], vmin, vmax)
+    
+    channels = {
+    'c0': ((1, 0, 1-alpha, 1), 's', 200, 'reference (time t)'),
+    'c1': ((0, 1, alpha, 1), 's', 200, 'moving (time t+1)')
+    }
+    
+    f = lambda v: plt.scatter([], [], marker=v[1], facecolor=v[0], s=v[2], linewidths=1, edgecolors='black')
+    handles = [f(v) for k,v in channels.items()]
+    labels = [v[3] for k,v in channels.items()]
+
+    newim = np.ones(image[0].shape + (3,))
+
+    newim[..., 0] = c0
+    newim[..., 1] = c1
+    newim[..., 2] = (1-alpha)*c0 + alpha*c1
+    
+    all_methods = list(results["flows"].keys())
+    methods = [m for m in all_methods]
+
+    name_map = {
+        "fista": "Proposed",
+        "hs": "HS",
+        "ilk": "ILK",
+        "tv_l1": "TV-L1",
+        "farneback": "Farneback",
+    }
+
+    method_names = []
+    for m in methods:
+        name = m.__name__.replace("_of", "") if callable(m) else str(m)
+        method_names.append(name_map.get(name, name)) 
+
+    num_methods = len(methods)
+
+    fig = plt.figure(figsize=(13, 2*num_methods))
+    
+    gs = gridspec.GridSpec(num_methods, 4, figure=fig,
+                           wspace=0.07, hspace=0.05, width_ratios = [2, 1, 1, 1])
+
+    ax_left = fig.add_subplot(gs[:, 0])
+    ax_left.imshow(newim)
+    ax_left.legend(handles, labels, loc=2, framealpha=1)
+    ax_left.axis('off') 
+    ax_left.set_title("Cell positions", fontsize=15)
+    
+    flows = [results["flows"][m][:,0] for m in methods]
+
+    quiv_line = None
+    axes_line = []
+
+    for j, flow in enumerate(flows):
+        ax = fig.add_subplot(gs[j, 1])
+        axes_line.append(ax)
+
+        H, W = image[0].shape[:step_flow]
+        y, x = np.mgrid[0:H:step_flow, 0:W:step_flow]
+
+        v = flow[0, ::step_flow, ::step_flow]
+        u = flow[1, ::step_flow, ::step_flow]
+        norm = np.sqrt(u**2 + v**2)
+
+        ax.imshow(np.ones((image[0].shape + (3, )))*0.5)
+        ax.imshow(image[0],
+                  cmap='gray',
+                  zorder=0, alpha=0.5)
+
+        quiv_line = ax.quiver(
+            x, y, u, v, norm,
+            cmap='afmhot', clim=(0, norm.max()),
+            angles='xy', scale_units='xy', scale=scale_flow, zorder=1, width=0.006
+        )
+
+        ax.axis('off')
+        if j == 0:
+            ax.set_title('Displacement', fontsize=15)
+        
+        title = method_names[j]
+        ax.text(-0.12, 0.5, title, fontsize=15, rotation=90,
+                va="center", ha="center", multialignment="center", transform=ax.transAxes)
+
+    if quiv_line is not None:
+        cbar = fig.colorbar(quiv_line, ax=axes_line, orientation="vertical",
+                            fraction=0.05, pad=0.03, shrink=1.0)
+        cbar.ax.tick_params(labelsize=10)
+
+    
+    data_list_strain = [
+        results["deformation"][m][0] for m in methods
+    ]
+
+    ims = []
+    axes_line = []
+
+    for j, data in enumerate(data_list_strain):
+        ax = fig.add_subplot(gs[j, 2])
+        im = ax.imshow(data, cmap="afmhot", vmin=0, vmax=vmaxstrain)
+        ims.append(im)
+        axes_line.append(ax)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_title('Deformation', fontsize=15)
+
+    cbar = fig.colorbar(ims[-1], ax=axes_line, orientation="vertical",
+                        fraction=0.05, pad=0.03, shrink=1.0)
+    cbar.ax.tick_params(labelsize=10)
+
+    fields = [results["traction"][m] for m in methods]
+    quiv_line = None
+    axes_line = []
+
+    for j, field in enumerate(fields):
+        ax = fig.add_subplot(gs[j, 3])
+        axes_line.append(ax)
+
+        H, W = image[0].shape[:2]
+        y, x = np.mgrid[0:H:step_traction, 0:W:step_traction]
+
+        v = field[0, ::step_traction, ::step_traction]
+        u = field[1, ::step_traction, ::step_traction]
+        norm = np.sqrt(u**2 + v**2)
+        ax.imshow(np.ones((image[0].shape + (3, )))*0.5)
+        ax.imshow(image[0],
+                  cmap='gray',
+                  zorder=0, alpha=0.5)
+
+        quiv_line = ax.quiver(
+            x, y, u, v, norm,
+            cmap='afmhot', clim=(0, norm.max()),
+            angles='xy', scale_units='xy', scale=scale_traction, zorder=1
+        )
+
+        ax.axis('off')
+        if j == 0:
+            ax.set_title('Traction force', fontsize=15)
+
+    if quiv_line is not None:
+        cbar = fig.colorbar(quiv_line, ax=axes_line, orientation="vertical",
+                            fraction=0.05, pad=0.03, shrink=1.0)
+        cbar.ax.tick_params(labelsize=10)
+
+    if show: 
+        plt.show()
     
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
