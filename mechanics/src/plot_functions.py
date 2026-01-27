@@ -833,8 +833,8 @@ def plot_pos_dis_strain_trac_micro_image(
     c1 = remap(image[1], vmin, vmax)
     
     channels = {
-    'c0': ((1, 0, 1-alpha, 1), 's', 200, 'reference (time t)'),
-    'c1': ((0, 1, alpha, 1), 's', 200, 'moving (time t+1)')
+    'c0': ((1, 0, 1-alpha, 1), 's', 200, 'Reference (time t)'),
+    'c1': ((0, 1, alpha, 1), 's', 200, 'Moving (time t+1)')
     }
     
     f = lambda v: plt.scatter([], [], marker=v[1], facecolor=v[0], s=v[2], linewidths=1, edgecolors='black')
