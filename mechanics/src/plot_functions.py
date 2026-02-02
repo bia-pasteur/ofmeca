@@ -977,3 +977,49 @@ def plot_pos_dis_strain_trac_micro_image(
     save_path = Path(save_path)
     save_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    
+    
+def plot_field(image: np.ndarray, flow: np.ndarray, step: int, scale: float):   
+    """
+    Plots quivers associated with a vector field on an image
+
+    Args:
+        image (np.ndarray): Image
+        flow (np.ndarray): Field
+        step (int): Sampling step for displaying vectors (e.g., 1 = every pixel, 2 = every second pixel)
+        scale (float): Scaling factor for quiver visualization.
+    """
+    fig, ax = plt.subplots(figsize=(6, 6))
+
+    H, W = image[0].shape[:2]
+    y, x = np.mgrid[0:H:step, 0:W:step]
+
+    v = flow[0, ::step, ::step]
+    u = flow[1, ::step, ::step]
+    norm = np.sqrt(u**2 + v**2)
+    ax.imshow(image[0], cmap='gray', zorder=0)
+    
+    quiv = ax.quiver(
+        x, y, u, v, norm,
+        cmap='afmhot',
+        clim=(0, norm.max()),
+        angles='xy',
+        scale_units='xy',
+        scale=scale,
+        zorder=1,
+        width=0.004
+    )
+
+    ax.axis('off')
+    ax.set_title('Field', fontsize=15)
+    
+    cbar = fig.colorbar(
+        quiv,
+        ax=ax,
+        orientation="vertical",
+        fraction=0.05,
+        pad=0.03
+    )
+    cbar.ax.tick_params(labelsize=10)
+
+    plt.show()

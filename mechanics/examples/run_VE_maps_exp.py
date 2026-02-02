@@ -162,7 +162,6 @@ T_ZONE = 100.0
 #             NUM_TIME_STEPS, YM_INIT, ALPHA_YM, BOUNDS_YM, ITER_YM, FTOL_YM, GTOL_YM, ETA_INIT,
 #             ALPHA_ETA, NB_STEPS, BOUNDS_ETA, ITER_ETA, FTOL_ETA, GTOL_ETA)
 
-
 folder = Path(f'/Users/josephinelahmani/Desktop/ofmeca/data/viscoelas/T_{T_ZONE}_E_{E}_nu_0.3_eta_{ETA}_patches')
 img_path = folder / '1_img.npy'
 ugt_path = folder / '1_ugt.npy'

@@ -2,8 +2,8 @@
 # pylint: disable=line-too-long
 # pylint: disable=trailing-whitespace
 from typing import List, Callable, Dict
-import numpy as np
 import time
+import numpy as np
 import scipy.ndimage as ndi
 from mechanics.src.MCM.quantities_computation import (
     strain_mask, deformation, stress_mask,
