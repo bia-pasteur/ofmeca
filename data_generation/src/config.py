@@ -44,16 +44,3 @@ class NoiseSimuParams:
     nu: float
     seed: int
     noise_stds: List[float]
-    
-@dataclass
-class ViscoelasticSimuParams:
-    """Parameters for the viscoelastic cell simulation
-    """
-    t_end: float 
-    num_time_steps: int 
-    youngs_modulus: List[float]
-    traction_zone: float
-    nu: float
-    eta: float
-    seeds: List[int]
-    subparts: Dict
